@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Currency Converter</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #f5af19, #f12711);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  .converter {
+    background: white;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    text-align: center;
+    width: 320px;
+  }
+
+  h2 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  input, select, button {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 16px;
+  }
+
+  input:focus, select:focus {
+    border-color: #f12711;
+    box-shadow: 0 0 8px rgba(241, 39, 17, 0.3);
+  }
+
+  button {
+    background-color: #f12711;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  button:hover {
+    background-color: #f5af19;
+  }
+
+  .result {
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+  }
+</style>
+</head>
+<body>
+
+<div class="converter">
+  <h2>Currency Converter</h2>
+  <input type="number" id="amount" placeholder="Enter amount">
+  
+  <select id="fromCurrency">
+    <option value="USD">USD</option>
+    <option value="INR">INR</option>
+    <option value="EUR">EUR</option>
+  </select>
+
+  <select id="toCurrency">
+    <option value="USD">USD</option>
+    <option value="INR">INR</option>
+    <option value="EUR">EUR</option>
+  </select>
+
+  <button onclick="convertCurrency()">Convert</button>
+
+  <div class="result" id="result"></div>
+</div>
+
+<script>
+  // Fixed exchange rates for demonstration
+  const rates = {
+    USD: { USD: 1, INR: 82, EUR: 0.91 },
+    INR: { USD: 0.012, INR: 1, EUR: 0.011 },
+    EUR: { USD: 1.10, INR: 90, EUR: 1 }
+  };
+
+  function convertCurrency() {
+    const amount = parseFloat(document.getElementById('amount').value);
+    const from = document.getElementById('fromCurrency').value;
+    const to = document.getElementById('toCurrency').value;
+    const resultDiv = document.getElementById('result');
+
+    if (isNaN(amount)) {
+      resultDiv.textContent = "Please enter a valid number!";
+      return;
+    }
+
+    const converted = (amount * rates[from][to]).toFixed(2);
+    resultDiv.textContent = `${amount} ${from} = ${converted} ${to}`;
+  }
+</script>
+
+</body>
+</html>
